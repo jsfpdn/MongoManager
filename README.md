@@ -3,6 +3,7 @@ This is a repository for a secondary school-leaving work regarding MongoDB and s
 
 ## TODOS:
 ### Running Beta:
+* get command line arguments
 * logs and data directories
 * create list of shards
 * running mongos over shards
