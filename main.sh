@@ -10,59 +10,21 @@
 
 # BONUS - specify range of ports for instances
 
-function get_params {
-    MAIN_PARAM=$1
-    printf "$#"
-    case "$MAIN_PARAM" in
-        start)
-            # start
-            # check the arguments first
-            if [ "$#" -lt 1 ]; then
-                printf "whole lot of argumets bby!\n"
-                # check if the argument $2 is "use_last" and use the last mongodb configuration
-            else
-                printf "err: wrong arguments\n"
-                show_help
-            fi
-            ;;
-        stop)
-            # stop
-            printf "stop\n"
-            ;;
-        status)
-            # what's the status
-            printf "status\n"
-            ;;
-        help)
-            # prints out help
-            #show_help
-            ;;
-        clear_logs)
-            # clears out all previous logs, asks for permission
-            printf "clearing logs...\n"
-            ;;
-        clear_data)
-            # clears out all data, asks for permission
-            printf "clearing database data...\n"
-            ;;
-        *)
-            # if anything else, show help
-            show_help
-            ;;
-    esac
-}
-
 function extract_options {
     # read all the options from command line
-    TEMP=`getopt `
+    TEMP=`getopt -o m:r:s:p:l:d: --long mode:,replicas:,shards:,port:,logpath:,datapath: -n 'main.sh' "$@"`
+    eval set -- "$TEMP"
 
     while true; do
         case "$1" in
-            -a|--
+            -m|--mode)
+                case "$2" in
+                # go through all the modes: start/stop/reset/clear_log/clear_data/show/help
+                    "")
 }
 
 function show_help {
     printf "usage:\n"
 }
 
-get_params "$@"
+extract_options "$@"
