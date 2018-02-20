@@ -19,3 +19,4 @@ This is a repository for a secondary school-leaving work regarding MongoDB and s
 * HTML or some sort of GUI or interactive CLI
 * CLI or HTML overview of all running instances, data etc.
 * check if there's enough space for creating replicas and sharding beforehand
+* remember the last start-up (save the configuration to some file after successful start and use it again if asked for a restart or shorthand start)
