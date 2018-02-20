@@ -18,3 +18,4 @@ This is a repository for a secondary school-leaving work regarding MongoDB and s
 ### Bonus:
 * HTML or some sort of GUI or interactive CLI
 * CLI or HTML overview of all running instances, data etc.
+* check if there's enough space for creating replicas and sharding beforehand
