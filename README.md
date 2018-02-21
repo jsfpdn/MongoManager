@@ -10,7 +10,7 @@ Params: mode, replicas, shards, port, logpath, datapath
 * create list of shards
 * running mongos over shards
 * create replica sets of shards
-* have dynamic range of ports
+* create PID file to check for already running instances (get all running, close all running...)
 
 ### V1:
 * first import/export scripts
