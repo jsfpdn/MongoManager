@@ -10,6 +10,8 @@
 
 # BONUS - specify range of ports for instances
 
+# TODO: getopts
+
 function extract_options {
     # read all the options from command line
     TEMP=`getopt -o m:r:s:p:l:d: --long mode:,replicas:,shards:,port:,logpath:,datapath: -n 'main.sh' "$@"`
@@ -24,7 +26,45 @@ function extract_options {
 }
 
 function show_help {
+    # Prints help
+
     printf "usage:\n"
+}
+
+function create_dirs {
+    # Creates directories for logging and data
+
+    logpath=$0
+    datapath=$1
+}
+
+function start_replica_set {
+    # Starts one replica set on certain port
+
+    port=$0
+}
+
+function create_pid_file {
+    # Creates one PID file on certain port for mongo instance
+
+    port=$0
+    type=$1
+}
+
+function create_init_string {
+    # Creates init string for sharding
+}
+
+function kill_instance {
+    # Kills one instance on certain port and removes PID file
+
+    port=$0
+}
+
+function stop_instance {
+    # Stops one instance
+
+    port=$0
 }
 
 extract_options "$@"
