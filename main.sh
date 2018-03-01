@@ -39,7 +39,7 @@ function create_dirs {
 }
 
 function start_replica_set {
-    # Starts one replica set on certain port
+    # Starts one replica set on certain port    
 
     port=$0
 }
