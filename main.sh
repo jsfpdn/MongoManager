@@ -1,10 +1,39 @@
 #!/bin/bash
 
-# TODO: dynamically generate ports
 # TODO: PID files
 # TODO: 
 
 # return values: https://stackoverflow.com/questions/17336915/return-value-in-bash-script
+
+MOGNOD_STARTING_PORT=27017  # port of first replica set
+CONFIG_STARTING_PORT=28017  # port of first config server
+MONGOD_PORTS=()
+CONFIG_PORTS=()
+
+# Generates arrays of ports used later in the programme to start instances
+# $1 REPLICAS: integer  - number of mongod instances in one shard
+# $2 SHARDS: integer    - number of shards
+function generate_ports {
+    REPLICAS=$1
+    SHARDS=$2
+
+    case "$SHARDS" in   # Checking for valid amount of shards
+        0) TOTAL=$REPLICAS ;;
+        *) TOTAL=$((REPLICAS * SHARDS)) ;;
+    esac
+
+    for ((i = 0; i < TOTAL; i++)); do   # generating array of mongod ports
+        MONGOD_PORTS+=($(($MONGOD_STARTING_PORT + $i)))
+    done
+
+    if ((SHARDS < 2)); then # generating array of config ports
+        CONFIG_PORTS+=($CONFIG_STARTING_PORT)
+    else
+        for ((i = 0; i < SHARDS; i++)); do
+            CONFIG_PORTS+=($(($CONFIG_STARTING_PORT + $i)))
+        done
+    fi
+}
 
 # Starts one replica set instance with port number and replica set ID
 # $1 ID: integer    - ID of group of replica sets
@@ -100,4 +129,3 @@ function stop_instance {
     port=$0
 }
 
-extract_options "$@"
