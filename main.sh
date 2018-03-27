@@ -1,18 +1,56 @@
 #!/bin/bash
 
-# 1. - check if mongodb is installed
-# 2. - get arguments from command line (amount of shards and replicas), always create mongos - dbpath, dblog
-# 3. - create additional directories - logs and data
-# 3. - parse arguments, evaluate them
-# 4. - make running v0.1 for starting shards
+# TODO: dynamically generate ports
+# TODO: PID files
+# TODO: 
 
 # return values: https://stackoverflow.com/questions/17336915/return-value-in-bash-script
 
-function initialize_instances {
-    # Function that receives parsed arguments, starts primary replica sets,
-    # configures them, starts secondary replica sets, cfg servers and balancer
+# Starts one replica set instance with port number and replica set ID
+# $1 ID: integer    - ID of group of replica sets
+# $2 PORT: integer  - port number of replica set
+function create_replica_set {
+    ID=$1
+    PORT=$2
 
+    # TODO: create folder for data
+
+    mongod --port $PORT --dbpath $DATADIR/$PORT --logpath $LOGPATH/$PORT.log --fork --replSet "rs${ID}" --shardsvr --smallfiles
 }
+
+# Creates config string and adds it to replica set configuration
+# $1 ID: integer    - ID of group of replica set
+# $2 PORT: integer  - port number of replica set    
+function initialize_replica_set {
+    ID=$1
+    PORT=$2
+
+    initString="rs.initiate({_id: 'rs${ID}', members: [{_id: ${ID}, host: 'localhost:${PORT}'}]}, {force : true})"
+    mongo --port $PORT --eval "$initString"
+}
+
+# adds another replica set to sharded cluster
+# $1 PRIMARY_PORT: integer  - port number of replica sets appropriate shard
+# $2 PORT: integer          - port number of replica set
+function config_replica_set {
+    PRIMARY_PORT=$1
+    PORT=$2
+
+    initString="rs.add('localhost:${PORT}')"
+    mongo --port $PRIMARY_PORT --eval "$initString"
+}
+
+# starts new config server
+# $1 ID: integer    - port ID of config server
+# $2 PORT:          - port number of config server
+function start_config_server {
+    ID=$1
+    PORT=$2
+
+    mongod --port $PORT --dbpath $DATADIR/${PORT} --configsvr --replSet configReplSet --fork --logpath $LOGPATH/$PORT.log --smallfiles
+}
+
+
 
 function extract_options {
     # read all the options from command line
