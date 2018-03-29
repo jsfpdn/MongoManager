@@ -10,7 +10,7 @@
 8. GUI
 
 ## flowchart
-![flowchart](./flowchart.png)
+![flowchart](https://imgur.com/jjOQcPQ.png)
 
 ## use case diagram
-![use case diagram](./use_case.png)
+![use case diagram](https://i.imgur.com/7Z0E83S.png)
