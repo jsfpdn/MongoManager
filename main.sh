@@ -129,3 +129,15 @@ CONFIG_PORTS=()
         port=$0
     }
 
+function install {
+    # create ports
+    # create folders
+    # start primary replica sets and init them
+    # create secondary replica sets and add them to replicas
+    # create all config servers
+    # add init string to first config server
+    # add 'rs.add()' to other config servers
+    # create balancer
+    # if sharding - create shard string
+    # create PID files
+}
