@@ -13,6 +13,10 @@ DATADIR=~/mongo/data        # data folder
 LOGPATH=~/mongo/logs        # log folder
 DB_NAME='mongomanager'      # name of sharded database
 DEFAULT_CHUNK_SIZE='64'     # default size of a chunk created by sharding
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+ECHO="echo -e"
 
 # Creates list of used ports for mongod
 MONGOD_PORTS=()
@@ -292,13 +296,47 @@ function stop {
     echo 'All processess have been terminated'
 }
 
+function checkHealth {
+    echo "ADDRESS:PORT        INSTANCE    HEALTH"
+
+    for ((i = 0; i < ${#MONGOD_PORTS[@]}; i++)); do    
+        PORT="${MONGOD_PORTS[$i]}"
+
+        mongo --host 127.0.0.1 --port ${PORT} --eval "exit" 1>/dev/null 2>/dev/null
+        if [ $? -eq 1 ]; then
+            $ECHO "127.0.0.1:${PORT}     MONGOD      ${RED}NOT RUNNING${NC}"
+        else
+            $ECHO "127.0.0.1:${PORT}     MONGOD      ${GREEN}RUNNING${NC}"
+        fi
+    done
+
+    for ((i = 0; i < ${#CONFIG_PORTS[@]}; i++)); do    
+        PORT="${CONFIG_PORTS[$i]}"
+
+        mongo --host 127.0.0.1 --port ${PORT} --eval "exit" 1>/dev/null 2>/dev/null
+        if [ $? -eq 1 ]; then
+            $ECHO "127.0.0.1:${PORT}     CFGSVR      ${RED}NOT RUNNING${NC}"
+        else
+            $ECHO "127.0.0.1:${PORT}     CFGSVR      ${GREEN}RUNNING${NC}"
+        fi
+    done
+
+    mongo --host 127.0.0.1 --port ${BALANCER_PORT} --eval "exit" 1>/dev/null 2>/dev/null
+    if [ $? -eq 1 ]; then
+        $ECHO "127.0.0.1:${BALANCER_PORT}     MONGOS      ${RED}NOT RUNNING${NC}"
+    else
+        $ECHO "127.0.0.1:${BALANCER_PORT}     MONGOS      ${GREEN}RUNNING${NC}"
+    fi
+}
+
 # prints out help
 function help {
-    echo "'$0 init      - initial install of mongodb replica sets'"
-    echo "'$0 sharding' - shards database and its collection"
-    echo "'$0 start'    - starts mongod services"
-    echo "'$0 stop'     - stops mongod services"
-    echo "'$0 delete'   - deletes all data from mongodb"
+    echo "'$0 init          - initial install of mongodb replica sets'"
+    echo "'$0 sharding'     - shards database and its collection"
+    echo "'$0 start'        - starts mongod services"
+    echo "'$0 stop'         - stops mongod services"
+    echo "'$0 delete'       - deletes all data from mongodb"
+    echo "'$0 checkHealth   - check health of mongodb instances'"
 }
 
 
@@ -318,6 +356,9 @@ init)
     ;;
 delete)
     delete
+    ;;
+checkHealth)
+    checkHealth
     ;;
 *)
     help
