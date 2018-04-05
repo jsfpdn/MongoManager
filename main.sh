@@ -296,6 +296,7 @@ function stop {
     echo 'All processess have been terminated'
 }
 
+# checks state of all instances (mognod, mongos, cfg server)
 function checkHealth {
     echo "ADDRESS:PORT        INSTANCE    HEALTH"
 
@@ -338,7 +339,6 @@ function help {
     echo "'$0 delete'       - deletes all data from mongodb"
     echo "'$0 checkHealth   - check health of mongodb instances'"
 }
-
 
 # switch
 case $1 in
