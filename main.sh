@@ -13,10 +13,10 @@ DATADIR=~/mongo/data        # data folder
 LOGPATH=~/mongo/logs        # log folder
 DB_NAME='mongomanager'      # name of sharded database
 DEFAULT_CHUNK_SIZE='64'     # default size of a chunk created by sharding
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-ECHO="echo -e"
+GREEN='\033[0;32m'          # green color
+RED='\033[0;31m'            # red color
+NC='\033[0m'                # no color
+ECHO="echo -e"              # variable for printing to command line with colors
 
 # Creates list of used ports for mongod
 MONGOD_PORTS=()

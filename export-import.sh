@@ -13,7 +13,7 @@ function pipe {
 }
 
 # imports data from an archived file
-function imports {
+function import {
     DB_NAME=$1
     NAME=$2
     IP=$3
@@ -23,7 +23,7 @@ function imports {
 }
 
 # exports data from db
-function exports {
+function export {
     DB_NAME=$1
     COLLECTION_NAME=$2
     IP=$3
