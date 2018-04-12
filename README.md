@@ -1,24 +1,16 @@
 # MongoManage
-This is a repository for a secondary school-leaving work regarding MongoDB and scripts for managing instances and data.
+PROG2C: MongoDB pro Unixové systémy
 
-Params: mode, replicas, shards, port, logpath, datapath
+__Zadání:__
+Vytvořte databázový cluster, umožňující budoucí růst pomocí horizontálního škálování a stoprocentní dostupnost dat pomocí replika setů. Databáze bude schopma vyrovnávat výpadky instancí bez jakéhokoliv opoždění či ztráty dat. Proveďte zautomatizovanou instalaci a zprovoznění MongoDB sharded clusteru a replika setů pro Unixové systémy pomocí Pythonu a shellových skriptů. Naprogramujte skripty na údržbu databáze, import, export a zálohování databáze z příkazové řádky.
 
-## TODOS:
-### Running Beta:
-- get command line arguments
-- logs and data directories
-- create list of shards
-- running mongos over shards
-- create replica sets of shards
-- create PID file to check for already running instances (get all running, close all running...)
+autor: __Josef Podaný, V4D__
 
-### V1:
-- first import/export scripts
-- backups with cron, shutting down least used replicas etc.
-- create HOW-TOs in markdown
+## flowchart mongomanager
+![flowchart mongomanager](https://imgur.com/jjOQcPQ.png)
 
-### Bonus:
-- HTML or some sort of GUI or interactive CLI
-- CLI or HTML overview of all running instances, data etc.
-- check if there's enough space for creating replicas and sharding beforehand
-- remember the last start-up (save the configuration to some file after successful start and use it again if asked for a restart or shorthand start)
+## flowchart export-import
+![flowchart import-export](https://i.imgur.com/jV8GRf2.png)
+
+## use case diagram
+![use case diagram](https://i.imgur.com/7Z0E83S.png)
