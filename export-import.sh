@@ -45,7 +45,7 @@ export)
     read -p "balancer port: " BALANCER
     read -p "database name: " DB
     read -p "collection name: " COLLECTION
-    exports $DB $COLLECTION $IP $BALANCER
+    export $DB $COLLECTION $IP $BALANCER
     ;;
 pipe)
     echo "FROM: "
@@ -63,7 +63,7 @@ import)
     read -p "port: " PORT
     read -p "database name: " DB
     read -p "full file name: " FILE_NAME
-    imports $DB $FILE_NAME $IP $PORT
+    import $DB $FILE_NAME $IP $PORT
     ;;
 *)
     help
