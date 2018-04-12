@@ -226,7 +226,8 @@ function init {
             done
         fi
     done
-
+    echo "tadzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+    echo "$ADD_SHARDS_STRING"
     mongo localhost:${BALANCER_PORT}/admin --eval ${ADD_SHARDS_STRING}
 }
 
