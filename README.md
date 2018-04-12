@@ -9,8 +9,8 @@ autor: __Josef Podaný, V4D__
 ## flowchart mongomanager
 ![flowchart mongomanager](https://imgur.com/jjOQcPQ.png)
 
-## flowchart export-import
+## use case diagram - export-import
 ![flowchart import-export](https://i.imgur.com/jV8GRf2.png)
 
-## use case diagram
+## use case diagram - mongomanager
 ![use case diagram](https://i.imgur.com/7Z0E83S.png)
