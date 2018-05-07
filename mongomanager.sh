@@ -1,4 +1,5 @@
-#!bin/bash
+#!/bin/bash
+
 # secondary school-leaving work script that manages mongo instances
 # author: Josef Podany
 # class: V4D
@@ -226,8 +227,6 @@ function init {
             done
         fi
     done
-    echo "tadzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
-    echo "$ADD_SHARDS_STRING"
     mongo localhost:${BALANCER_PORT}/admin --eval ${ADD_SHARDS_STRING}
 }
 

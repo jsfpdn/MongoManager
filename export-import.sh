@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 #script for exporting data from a production database
 
 # pipes data from one db to another
